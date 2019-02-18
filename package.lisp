@@ -1,4 +1,5 @@
 ;;;; package.lisp
 
 (defpackage #:i2z
-  (:use #:cl))
+  (:use #:cl)
+  (:export #:main))

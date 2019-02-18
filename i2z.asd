@@ -6,7 +6,7 @@
   :license  "MIT"
   :version "0.0.1"
   :serial t
-  :depends-on (#:drakma #:str #:cl-fad #:cl-toml #:cl-csv #:flexistreams)
+  :depends-on (#:drakma #:str #:cl-fad #:cl-toml #:cl-json #:cl-csv #:flexi-streams)
   :components ((:file "package")
                (:file "i2z")))
 

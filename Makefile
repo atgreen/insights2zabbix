@@ -1,4 +1,4 @@
-i2z: *.asd *.lisp *.clt Makefile
+i2z: *.asd *.lisp Makefile
 	buildapp --output i2z \
 		--asdf-path `pwd`/.. \
 		--asdf-tree ~/quicklisp/dists/quicklisp/software \

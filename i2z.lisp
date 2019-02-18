@@ -2,22 +2,29 @@
 
 (in-package #:i2z)
 
-;; Read the user configuration settings.
-(setf *config*
-      (if (fad:file-exists-p "/etc/i2z/config.ini")
-	  (cl-toml:parse
-	   (rlgl.util:read-file-into-string "/etc/i2z/config.ini"))
-	  (make-hash-table)))
+(defvar *config-file-name* "./config.ini")
+(defvar *config* nil)
 
 (defun get-config (value)
   (let ((v (gethash value *config*)))
     (unless v
-      (error "ERROR: missing config setting ~A" v))
+      (error "ERROR: missing config setting ~A" value))
     v))
 
-;;; THIS IS NOT COMPLETE
+(defun read-file-into-string (filename)
+  (with-open-file (stream filename :external-format :UTF-8)
+    (let ((contents (make-string (file-length stream))))
+      (read-sequence contents stream)
+      contents)))
 
-(defun main ()
+(defun main (args)
+  
+  ;; Read the user configuration settings.
+  (setf *config*
+	(if (fad:file-exists-p *config-file-name*)
+	    (cl-toml:parse
+	     (read-file-into-string *config-file-name*))
+	    (make-hash-table)))
 
   (let ((redhat-access-username (get-config "redhat-access-username"))
 	(redhat-access-password (get-config "redhat-access-password"))
